@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Snake.Properties;
 
 namespace Snake
 {
@@ -15,13 +16,17 @@ namespace Snake
         public MainForm()
         {
             heightHeader = GetHeightHeader();
+            Text = strings.MainForm_Title;
 
             Control[] buttons = GetButtons();
             Size = new Size(WIDTH_FORM,
                             buttons[buttons.Length - 1].Top + HEIGHT_BUTTON + BOTTOM_PADDING_FORM + heightHeader);
             StartPosition = FormStartPosition.CenterScreen;
             Controls.AddRange(buttons);
-            Select();
+            Select(); // Убрать выделение с первой добавленной кнопки
+            
+            
+            
         }
 
         /// <summary>
@@ -41,9 +46,11 @@ namespace Snake
         /// <returns>Кнопки на форме</returns>
         Control[] GetButtons()
         {
-            Button startGame = new Button {Text = "Start Game"};
-            Button options = new Button {Text = "Options"};
-            Button quit = new Button {Text = "Quit"};
+//            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
+            
+            Button startGame = new Button {Text = strings.MainForm_StartGame};
+            Button options = new Button {Text = strings.MainForm_Options};
+            Button quit = new Button {Text = strings.MainForm_Exit};
 
             startGame.Click += ActionClickStartGame;
             options.Click += ActionClickOption;
@@ -65,7 +72,13 @@ namespace Snake
         /// <summary>
         /// Действие при нажатии на кнопку "StartGame"
         /// </summary>
-        void ActionClickStartGame(object obj, EventArgs eventArgs) { throw new NotImplementedException(); }
+        void ActionClickStartGame(object obj, EventArgs eventArgs)
+        {
+            Game game = new Game();
+            game.Show(this);
+            Hide();
+//            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Действие при нажатии на кнопку "Option"
