@@ -63,7 +63,7 @@ namespace Snake.Properties {
         /// <summary>
         ///   Looks up a localized string similar to 1250
         ///wwwwwwwwwwww
-        ///ws         w
+        ///w         sw
         ///w          w
         ///w          w
         ///w          w

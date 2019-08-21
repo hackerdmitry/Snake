@@ -13,6 +13,11 @@ namespace Snake
         };
         readonly HashSet<IEntity> entities = new HashSet<IEntity>();
 
+        delegate void ChangeCollection();
+
+        readonly HashSet<ChangeCollection> eventSubscriptions = new HashSet<ChangeCollection>();
+        event ChangeCollection ChangeCollectionEntities;
+
         /// <summary>
         /// Длина карты в клектках
         /// </summary>
@@ -37,7 +42,7 @@ namespace Snake
                     if (charFields[i, j] == ' ') countFreeCells++;
                     if (charFields[i, j] == 's')
                     {
-                        entities.Add(new Snake(this, new Position(j, i)));
+                        entities.Add(new Snake(this, new Position(j, i), 3));
                     }
                 }
             }
@@ -54,8 +59,20 @@ namespace Snake
         /// Убить существо
         /// </summary>
         /// <param name="entity">Существо</param>
-        public void KillEntity(IEntity entity) { entities.Remove(entity); }
-        
+        public void KillEntity(IEntity entity)
+        {
+            void ChangeCollection() => entities.Remove(entity);
+            eventSubscriptions.Add(ChangeCollection);
+            ChangeCollectionEntities += ChangeCollection;
+        }
+
+        void ClearEventCollectionEntities()
+        {
+            foreach (ChangeCollection eventSubscription in eventSubscriptions)
+                ChangeCollectionEntities -= eventSubscription;
+            eventSubscriptions.Clear();
+        }
+
         /// <summary>
         /// Перерисовка карты
         /// </summary>
@@ -71,8 +88,13 @@ namespace Snake
             }
             foreach (IEntity entity in entities)
             {
-                entity.Move();
-                entity.OnPaint(drawing);
+                if (entity.Move())
+                    entity.OnPaint(drawing);
+            }
+            if (eventSubscriptions.Count != 0)
+            {
+                ChangeCollectionEntities();
+                ClearEventCollectionEntities();
             }
         }
     }

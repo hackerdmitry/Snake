@@ -9,32 +9,45 @@ namespace Snake
         readonly Map map;
         readonly LinkedHashList<Position> snakePositions = new LinkedHashList<Position>();
         Direction currentDirection;
+        int startLength; // Начальная длина змеи
 
-        public Snake(Map map, Position startPosition)
+        public Snake(Map map, Position startPosition, int length = 1)
         {
             snakePositions.AddFirst(startPosition);
             this.map = map;
-            currentDirection = Direction.Right;
+            currentDirection = Direction.Left;
+            startLength = length;
         }
 
         /// <summary>
         /// Передвинуть змею в сторону куда смотрит змея в данный момент
         /// </summary>
-        public void Move() => Move(currentDirection);
+        /// <returns>Смог передвинуть змею без ее смерти</returns>
+        public bool Move() => Move(currentDirection);
 
         /// <summary>
         /// Передвинуть змею
         /// </summary>
         /// <param name="direction">Направление змеи в зависимости от кнопки на которую нажал пользователь</param>
-        public void Move(Direction direction)
+        /// <returns>Смог передвинуть змею без ее смерти</returns>
+        public bool Move(Direction direction)
         {
             if (Math.Abs(direction - currentDirection) == 1)
                 currentDirection = direction;
-            snakePositions.AddFirst(snakePositions.Last.Value + Directions.ToPosition(currentDirection));
-            snakePositions.RemoveLast();
 
-            if (map.IsDeadField(snakePositions.First.Value) || IsPartSnake(snakePositions.First.Value, false))
+            Position newHeadPos = snakePositions.First.Value + Directions.ToPosition(currentDirection);
+            if (map.IsDeadField(newHeadPos) || IsPartSnake(newHeadPos, false))
+            {
                 map.KillEntity(this);
+                return false;
+            }
+            
+            snakePositions.AddFirst(newHeadPos);
+            if (startLength < 2)
+                snakePositions.RemoveLast();
+            else
+                startLength--;
+            return true;
         }
 
         /// <summary>
@@ -51,14 +64,15 @@ namespace Snake
             LinkedListNode<Position> snakePosition = snakePositions.First;
             for (int i = 0; i < snakePositions.Count; i++)
             {
+                int valueX = snakePosition.Value.X, valueY = snakePosition.Value.Y;
                 if (i == 0)
-                    drawing.DrawImage(images.headSnake, snakePosition.Value.X, snakePosition.Value.Y);
+                    drawing.DrawImage(images.headSnake, valueX, valueY, currentDirection);
                 else if (i == snakePositions.Count - 1)
-                    drawing.DrawImage(images.tailSnake, snakePosition.Value.X, snakePosition.Value.Y);
+                    drawing.DrawImage(images.tailSnake, valueX, valueY, currentDirection);
                 else if (Math.Abs((snakePosition.Previous.Value - snakePosition.Next.Value).Length - 2) < 0.01f)
-                    drawing.DrawImage(images.curveBodySnake, snakePosition.Value.X, snakePosition.Value.Y);
+                    drawing.DrawImage(images.bodySnake, valueX, valueY, currentDirection);
                 else
-                    drawing.DrawImage(images.bodySnake, snakePosition.Value.X, snakePosition.Value.Y);
+                    drawing.DrawImage(images.curveBodySnake, valueX, valueY, currentDirection);
                 snakePosition = snakePosition.Next;
             }
         }
