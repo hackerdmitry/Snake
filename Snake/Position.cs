@@ -4,6 +4,7 @@ namespace Snake
 {
     public struct Position
     {
+
         public int X { get; }
         public int Y { get; }
 
@@ -24,5 +25,11 @@ namespace Snake
         public static bool operator ==(Position p1, Position p2) => p1.X == p2.X && p1.Y == p2.Y;
         
         public static bool operator !=(Position p1, Position p2) => p1.X != p2.X || p1.Y != p2.Y;
+
+        public override int GetHashCode() => X ^ 397 + Y;
+
+        bool Equals(Position other) => X == other.X && Y == other.Y;
+
+        public override bool Equals(object obj) => obj is Position other && Equals(other);
     }
 }

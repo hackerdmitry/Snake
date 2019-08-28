@@ -130,7 +130,7 @@
   <data name="headSnake" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\headSnake.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="smallEat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="smallFood" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\smallEat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="tailSnake" type="System.Resources.ResXFileRef, System.Windows.Forms">

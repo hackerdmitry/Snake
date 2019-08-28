@@ -6,6 +6,6 @@ namespace Snake
     public class Wall : IField
     {
         public bool IsDeadField => true;
-        public Bitmap Image => images.wall;
+        public Bitmap Image { get; } = images.wall;
     }
 }

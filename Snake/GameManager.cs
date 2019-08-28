@@ -1,12 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Resources;
-using System.Threading;
-using System.Windows.Forms;
 using Snake.Properties;
 
 namespace Snake

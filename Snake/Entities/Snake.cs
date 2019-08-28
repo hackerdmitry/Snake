@@ -41,7 +41,7 @@ namespace Snake
                 return false;
 
             snakePositions.AddFirst(newHeadPos);
-            if (startLength < 2)
+            if (startLength < 2 && !map.TryToEatFood(newHeadPos))
                 snakePositions.RemoveLast();
             else
                 startLength--;
