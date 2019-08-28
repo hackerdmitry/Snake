@@ -7,8 +7,18 @@ namespace Snake
         Graphics graphics;
 
         public void SetGraphics(Graphics graphics) => this.graphics = graphics;
+        
+        public Graphics GetGraphics() => graphics;
 
-        public void DrawImage(Image image, int x, int y, Direction direction = Direction.Right)
+        public void DrawImage(Image image, float x, float y, Direction direction = Direction.Right)
+        {
+            RotateImage(image, direction);
+            graphics.DrawImage(image,
+                               x * Game.LENGTH_SIDE, y * Game.LENGTH_SIDE,
+                               Game.LENGTH_SIDE, Game.LENGTH_SIDE);
+        }
+
+        static void RotateImage(Image image, Direction direction)
         {
             switch (direction)
             {
@@ -22,9 +32,6 @@ namespace Snake
                     image.RotateFlip(RotateFlipType.RotateNoneFlipXY);
                     break;
             }
-            graphics.DrawImage(image,
-                               x * Game.LENGTH_SIDE, y * Game.LENGTH_SIDE,
-                               Game.LENGTH_SIDE, Game.LENGTH_SIDE);
         }
     }
 }

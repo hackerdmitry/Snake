@@ -62,12 +62,19 @@ namespace Snake.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 1250
-        ///wwwwwwwwwwww
-        ///w         sw
-        ///w          w
-        ///w          w
-        ///w          w
-        ///wwwwwwwwwwww.
+        ///snake 2 2 13 r
+        ///startLevel
+        ///wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+        ///w                                           w
+        ///w                                           w
+        ///w                                           w
+        ///w                                           w
+        ///w                                           w
+        ///w                                           w
+        ///w                                           w
+        ///w                                           w
+        ///w                                           w
+        ///w        [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string level1 {
             get {

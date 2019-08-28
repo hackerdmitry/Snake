@@ -119,11 +119,25 @@
   </resheader>
   <data name="level1" xml:space="preserve">
     <value>1250
-wwwwwwwwwwww
-w         sw
-w          w
-w          w
-w          w
-wwwwwwwwwwww</value>
+snake 2 2 13 r
+startLevel
+wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+w                                           w
+w                                           w
+w                                           w
+w                                           w
+w                                           w
+w                                           w
+w                                           w
+w                                           w
+w                                           w
+w                                           w
+w                                           w
+w                                           w
+w                                           w
+w                                           w
+w                                           w
+w                                           w
+wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</value>
   </data>
 </root>

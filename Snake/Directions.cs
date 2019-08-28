@@ -25,8 +25,25 @@ namespace Snake
                     return new Position(0, 1);
                 case Direction.Left:
                     return new Position(-1, 0);
+                default:
+                    throw new NotImplementedException();
             }
-            throw new NotImplementedException();
+        }
+        
+        public static Direction ToDirection(Position position)
+        {
+            switch (position.X) {
+                case 0 when position.Y == -1:
+                    return Direction.Up;
+                case 1 when position.Y == 0:
+                    return Direction.Right;
+                case 0 when position.Y == 1:
+                    return Direction.Down;
+                case -1 when position.Y == 0:
+                    return Direction.Left;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(position), position, null);
+            }
         }
     }
 }
